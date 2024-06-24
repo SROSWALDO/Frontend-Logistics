@@ -17,7 +17,7 @@ import { useAuth } from "../Login/Autenticate";
 
 export default function Home() {
 
-  const { token } = useAuth(); // Obtener el token del contexto de autenticación
+  const { token} = useAuth(); // Obtener el token del contexto de autenticación
   const { users, setUsers } = useAuth();
   const { isAuthenticated } = useAuth();
 
@@ -30,7 +30,6 @@ export default function Home() {
     }
   }, [isAuthenticated, users, setUsers]);
   
-
   const [formData, setFormData] = useState({
     origen: "",
     cp_origen: "",
@@ -245,6 +244,10 @@ export default function Home() {
             
           </>
         )}
+
+        <div className="nameuser absolute right-80 text-white ">
+        <p>Hola! {users.nombreUsuario}</p>
+        </div>
 
            
 

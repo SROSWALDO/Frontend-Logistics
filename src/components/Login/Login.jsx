@@ -6,7 +6,7 @@ import { useAuth } from './Autenticate';
 import useStore from '../Global/Store';
 
 export default function Login() {
-    const { users, setUsers } = useStore();
+  const { users, setUsers } = useStore();
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [error, setError] = useState('');

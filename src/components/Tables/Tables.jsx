@@ -110,6 +110,10 @@ export default function Tables() {
           </>
         )}
 
+      <div className="nameuser absolute right-80 text-white ">
+        <p>Hola! {users.nombreUsuario}</p>
+      </div>
+
         <NavLink to="/logout">
           <div className="toRegisters absolute right-3 top-8 flex bg-red-600 hover:bg-red-700 w-[130px] p-[2px] justify-center rounded-xl text-white mr-8 cursor-pointer transition-all">
             <p className="text-lg mr-2">Log out</p>

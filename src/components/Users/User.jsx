@@ -4,7 +4,7 @@ import axios from '../../axios';
 import Swal from "sweetalert2";
 import trash from "../../assets/delete.svg";
 import logo from "../../assets/Logo.png";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../Login/Autenticate';
 
 export default function User () {
@@ -12,6 +12,7 @@ export default function User () {
     const { users, setUsers } = useStore();
     const [dataFetched, setDataFetched] = useState(false);
     const { token, isAuthenticated } = useAuth();
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
@@ -61,26 +62,36 @@ export default function User () {
         }
     };
 
+    const handleFormClick = () => {
+        navigate('/home');
+        window.location.reload(); // Forzar la recarga de la página
+    };
+
+    const handleTableClick = () => {
+        navigate('/registers');
+        window.location.reload();
+    }
+
     return (
         <div>
 
-<div className="slider relative font-Poppins w-full bg-[#000]  shadow-2xl h-[90px] items-center flex justify-center ">
+        <div className="slider relative font-Poppins w-full bg-[#000]  shadow-2xl h-[90px] items-center flex justify-center ">
                 <div className="logo ml-5 flex ">
                     <img className="w-[90px] absolute left-5 top-0 " src={logo} alt="" />
                 </div>
-                <NavLink to="/home">
-                    <div className="toRegisters flex  w-[90px] justify-center rounded-lg text-white mr-8 cursor-pointer transition-all">
+                
+                    <div onClick={handleFormClick} className="toRegisters flex  w-[90px] justify-center rounded-lg text-white mr-8 cursor-pointer transition-all">
                         
                         <p className="text-lg">Form</p>
                     </div>
-                </NavLink>
+                
 
-                <NavLink to="/registers">
-                    <div className="toRegisters flex  w-[90px] justify-center rounded-lg text-white mr-8 cursor-pointer transition-all">
+                
+                    <div onClick={handleTableClick} className="toRegisters flex  w-[90px] justify-center rounded-lg text-white mr-8 cursor-pointer transition-all">
                         
                         <p className="text-lg">Tables</p>
                     </div>
-                </NavLink>
+               
 
                 <NavLink to="/register">
                     <div className="toRegisters flex w-[100px] justify-center rounded-lg text-white mr-8 cursor-pointer transition-all">
