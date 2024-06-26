@@ -44,7 +44,7 @@ export default function Register() {
           correoElectronico: "",
           contraseña: "",
         });
-        navigate("/home");
+        
         } catch (error) {
             console.error("Eroor al crear el resgistro", error.message);
         }
