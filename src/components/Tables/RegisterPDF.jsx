@@ -1,49 +1,75 @@
-// src/components/RegisterPDF.js
-import React from 'react';
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import React from "react";
+import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
   page: {
     padding: 30,
-    fontFamily: 'Helvetica',
+    fontFamily: "Helvetica",
     fontSize: 12,
-    color: '#000',
+    color: "#333",
+    flexDirection: "column",
+    alignItems: "center",
   },
   section: {
     marginBottom: 20,
+    width: "100%",
   },
   heading: {
-    fontSize: 18,
+    fontSize: 24,
     marginBottom: 10,
-    textAlign: 'center',
-    borderBottom: '1px solid #000',
-    paddingBottom: 5,
+    textAlign: "center",
+    color: "#333",
+    fontWeight: "bold",
   },
   subheading: {
-    fontSize: 14,
+    fontSize: 18,
     marginBottom: 10,
-    borderBottom: '1px solid #000',
-    paddingBottom: 5,
+    color: "#555",
+    textDecoration: "underline",
   },
-  text: {
-    marginBottom: 5,
+  table: {
+    width: "100%",
+    border: "1px solid #666",
+    borderCollapse: "collapse",
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  tableHeader: {
+    backgroundColor: "#f0f0f0",
+    borderBottom: "1px solid #666",
   },
-  column: {
-    width: '48%',
+  tableRow: {
+    borderBottom: "1px solid #666",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
-  label: {
-    fontSize: 10,
-    color: '#555',
+  labelCell: {
+    padding: 8,
+    width: "25%",
+    borderRight: "1px solid #666",
+    borderBottom: "1px solid #666",
+    textAlign: "center",
+    fontWeight: "bold",
   },
-  value: {
-    fontSize: 12,
-    color: '#000',
+  valueCell: {
+    padding: 8,
+    width: "75%",
+    borderBottom: "1px solid #666",
+    textAlign: "left",
+    paddingLeft: 10,
   },
 });
+
+const formatDateTime = (dateTimeString) => {
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    timeZoneName: "short",
+  };
+  return new Date(dateTimeString).toLocaleString("es-ES", options);
+};
 
 const RegisterPDF = ({ register }) => (
   <Document>
@@ -54,68 +80,114 @@ const RegisterPDF = ({ register }) => (
 
       <View style={styles.section}>
         <Text style={styles.subheading}>Origen</Text>
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={styles.label}>ID</Text>
-            <Text style={styles.value}>{register.id}</Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={styles.label}>Origen</Text>
-            <Text style={styles.value}>{register.origen}</Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={styles.label}>CP Origen</Text>
-            <Text style={styles.value}>{register.cp_origen}</Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={styles.label}>Direccion Origen</Text>
-            <Text style={styles.value}>{register.direccion_origen}</Text>
+        <View>
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
+              <View style={styles.labelCell}>
+                <Text>ID</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.id}</Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>Origen</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.origen}</Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>Fecha y hora</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{formatDateTime(register.fecha_hora_origen)}</Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>CP Origen</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.cp_origen}</Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>Direccion Origen</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.direccion_origen}</Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.subheading}>Destino</Text>
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={styles.label}>Destino</Text>
-            <Text style={styles.value}>{register.destino}</Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={styles.label}>CP Destino</Text>
-            <Text style={styles.value}>{register.cp_destino}</Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={styles.label}>Direccion Destino</Text>
-            <Text style={styles.value}>{register.direccion_destino}</Text>
+        <View>
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
+              <View style={styles.labelCell}>
+                <Text>Destino</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.destino}</Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>Fecha y hora</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{formatDateTime(register.fecha_hora_destino)}</Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>CP Destino</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.cp_destino}</Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>Direccion Destino</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.direccion_destino}</Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.subheading}>Detalles de la Unidad</Text>
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={styles.label}>Unidad</Text>
-            <Text style={styles.value}>{register.unidad}</Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={styles.label}>Peso</Text>
-            <Text style={styles.value}>{register.peso} kg</Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={styles.label}>Dimensiones</Text>
-            <Text style={styles.value}>{register.dimensiones} m</Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={styles.label}>Cantidad de Skids</Text>
-            <Text style={styles.value}>{register.cantidad_skids}</Text>
+        <View>
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
+              <View style={styles.labelCell}>
+                <Text>Unidad</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.unidad}</Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>Peso</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.peso} kg</Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>Dimensiones</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.dimensiones} </Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>Hazmat</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.hazmat} </Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>Cantidad de Skids</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.cantidad_skids}</Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>

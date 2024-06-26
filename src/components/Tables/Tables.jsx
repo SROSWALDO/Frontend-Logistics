@@ -132,18 +132,21 @@ export default function Tables() {
                 <table className="min-w-full bg-white shadow-md rounded-lg">
                   <thead className='bg-white' >
                     <tr>
-                      <th className="py-2 px-4 border-b">ID</th>
+                    <th className="py-2 px-4 border-b">ID</th>
                       <th className="py-2 px-4 border-b">Origen</th>
                       <th className="py-2 px-4 border-b">CP</th>
                       <th className="py-2 px-4 border-b">Direccion</th>
+                      <th className="py-2 px-4 border-b">Fecha y Hora</th>
                       <th className="py-2 px-4 border-b">Destino</th>
                       <th className="py-2 px-4 border-b">CP</th>
                       <th className="py-2 px-4 border-b">Dirección</th>
+                      <th className="py-2 px-4 border-b">Fecha y Hora</th>
                       <th className="py-2 px-4 border-b">Unidad</th>
                       <th className="py-2 px-4 border-b">Weight</th>
                       <th className="py-2 px-4 border-b">Dimensions</th>
                       <th className="py-2 px-4 border-b">Quantity</th>
-                      <th className="py-2 px-4 border-b">Creado en</th>
+                      <th className="py-2 px-4 border-b">Hazmat</th>
+                      {/* <th className="py-2 px-4 border-b">Creado en</th> */}
                       <th className="py-2 px-4 border-b">Usuario</th>
                       <th className="py-2 px-4 border-b"></th>
                     </tr>
@@ -159,14 +162,17 @@ export default function Tables() {
                         <td className="py-2 px-4 border-b">{register.origen}</td>
                         <td className="py-2 px-4 border-b">{register.cp_origen}</td>
                         <td className="py-2 px-4 border-b">{register.direccion_origen}</td>
+                        <td className="py-2 px-4 border-b">{new Date(register.fecha_hora_origen).toLocaleString()}</td>
                         <td className="py-2 px-4 border-b">{register.destino}</td>
                         <td className="py-2 px-4 border-b">{register.cp_destino}</td>
                         <td className="py-2 px-4 border-b">{register.direccion_destino}</td>
+                        <td className="py-2 px-4 border-b">{new Date(register.fecha_hora_destino).toLocaleString()}</td>
                         <td className="py-2 px-4 border-b">{register.unidad}</td>
                         <td className="py-2 px-4 border-b">{register.peso} kg</td>
                         <td className="py-2 px-4 border-b">{register.dimensiones}</td>
                         <td className="py-2 px-4 border-b">{register.cantidad_skids}</td>
-                        <td className="py-2 px-4 border-b">{new Date(register.createdAt).toLocaleString()}</td>
+                        <td className="py-2 px-4 border-b">{register.hazmat}</td>
+                        {/* <td className="py-2 px-4 border-b">{new Date(register.createdAt).toLocaleString()}</td> */}
                         <td className="py-2 px-4 border-b text-center ">{register.usuarioId}</td>
                         <td className="py-2 px-4 border-b ">
                           <button onClick={() => deleteRegister(register.id)} className="bg-red-500 rounded-md w-8 p-1 ml-1 hover:bg-red-600">

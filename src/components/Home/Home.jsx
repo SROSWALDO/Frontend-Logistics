@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../axios"
+import axios from "../../axios";
 import logo from "../../assets/Logo.png";
 import bar from "../../assets/bar.svg";
 import { NavLink } from "react-router-dom";
@@ -16,20 +16,19 @@ import user from "../../assets/user.svg";
 import { useAuth } from "../Login/Autenticate";
 
 export default function Home() {
-
-  const { token} = useAuth(); // Obtener el token del contexto de autenticación
+  const { token } = useAuth(); // Obtener el token del contexto de autenticación
   const { users, setUsers } = useAuth();
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (isAuthenticated && !users) {
-      const storedUsers = localStorage.getItem('users');
+      const storedUsers = localStorage.getItem("users");
       if (storedUsers) {
         setUsers(JSON.parse(storedUsers));
       }
     }
   }, [isAuthenticated, users, setUsers]);
-  
+
   const [formData, setFormData] = useState({
     origen: "",
     cp_origen: "",
@@ -42,6 +41,11 @@ export default function Home() {
     peso: "",
     dimensiones: "",
     cantidad_skids: "",
+    unidad: "",
+    type_of_requirement: "",
+    hazmat: "",
+    fecha_hora_origen: "",
+    fecha_hora_unidad: "",
   });
 
   const succes = () => {
@@ -74,7 +78,12 @@ export default function Home() {
       !formData.estado_origen &&
       !formData.peso &&
       !formData.dimensiones &&
-      !formData.cantidad_skids
+      !formData.unidad &&
+      !formData.type_of_requirement &&
+      !formData.hazmat &&
+      !formData.cantidad_skids &&
+      !formData.fecha_hora_origen &&
+      !formData.fecha_hora_destino
     ) {
       Swal.fire({
         title: "Error",
@@ -187,10 +196,9 @@ export default function Home() {
     try {
       const response = await axios.post("/register", formData, {
         headers: {
-          Authorization: `Bearer ${token}` // Incluir el token en el encabezado de la solicitud
-        }
+          Authorization: `Bearer ${token}`, // Incluir el token en el encabezado de la solicitud
+        },
       });
-
 
       Swal.fire({
         title: "Successful",
@@ -210,60 +218,63 @@ export default function Home() {
         peso: "",
         dimensiones: "",
         cantidad_skids: "",
+        unidad: "",
+        type_of_requirement: "",
+        hazmat: "",
+        fecha_hora_origen: "",
+        fecha_hora_unidad: "",
       });
     } catch (error) {
       console.error("Error al crear registro", error.message);
     }
   };
 
-
   return (
     <>
       <div className="contenedor font-Poppins w-full bg-[#eeeff1] ">
-      <div className="slider w-full bg-[#000] relative shadow-2xl h-[90px] items-center flex justify-center">
-        <div className="logo absolute left-2 ml-5 flex">
-          <img className="w-[90px]" src={logo} alt="Logo" />
-        </div>
+        <div className="slider w-full bg-[#000] relative shadow-2xl h-[90px] items-center flex justify-center">
+          <div className="logo absolute left-2 ml-5 flex">
+            <img className="w-[90px]" src={logo} alt="Logo" />
+          </div>
 
-        <NavLink to="/registers">
-              <div className="toRegisters inline-flex items-center w-[100px] hover:scale-105 justify-center rounded-sm text-white mr-8 cursor-pointer transition-all">
-                <img className=" " src={bar} alt="" />
-                <p className="text-lg  ml-1 mt-1 transition-all">Registers</p>
-              </div>
+          <NavLink to="/registers">
+            <div className="toRegisters inline-flex items-center w-[100px] hover:scale-105 justify-center rounded-sm text-white mr-8 cursor-pointer transition-all">
+              <img className=" " src={bar} alt="" />
+              <p className="text-lg  ml-1 mt-1 transition-all">Registers</p>
+            </div>
           </NavLink>
 
-        {users?.isAdmin && (
-          <>
-            <NavLink to="/users">
-              <div className="toRegisters relative inline-flex items-center w-[100px] justify-center rounded-sm text-white mr-8 cursor-pointer hover:scale-105 transition-all">
-              <img className="absolute left-0 top-0 " src={user} alt="" />
-                <p className="text-lg   ml-1 transition-all ">Users</p>
-              </div>
-            </NavLink>
+          {users?.isAdmin && (
+            <>
+              <NavLink to="/users">
+                <div className="toRegisters relative inline-flex items-center w-[100px] justify-center rounded-sm text-white mr-8 cursor-pointer hover:scale-105 transition-all">
+                  <img className="absolute left-0 top-0 " src={user} alt="" />
+                  <p className="text-lg   ml-1 transition-all ">Users</p>
+                </div>
+              </NavLink>
+            </>
+          )}
 
-            
-          </>
-        )}
+          <div className="nameuser absolute right-80 text-white ">
+            <p>Hola! {users.nombreUsuario}</p>
+          </div>
 
-        <div className="nameuser absolute right-80 text-white ">
-        <p>Hola! {users.nombreUsuario}</p>
+          <NavLink to="/logout">
+            <div className="toRegisters absolute right-3 top-8 flex bg-red-600 hover:bg-red-700 w-[130px] p-[2px] justify-center rounded-xl text-white mr-8 cursor-pointer transition-all">
+              <p className="text-lg mr-2">Log out</p>
+              <img src={exit} alt="" />
+            </div>
+          </NavLink>
         </div>
 
-           
-
-        <NavLink to="/logout">
-          <div className="toRegisters absolute right-3 top-8 flex bg-red-600 hover:bg-red-700 w-[130px] p-[2px] justify-center rounded-xl text-white mr-8 cursor-pointer transition-all">
-            <p className="text-lg mr-2">Log out</p>
-            <img src={exit} alt="" />
-          </div>
-        </NavLink>
-      </div>
-
         <div className="formulario bg-[#eeeff1] ">
-          <form onSubmit={handleSubmit} className="flex w-[1250px] mt-4 m-auto ">
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-[1250px] mt-2 m-auto "
+          >
             <div className="m-auto">
               <div>
-                <div className="mt-5 bg-white rounded-lg shadow-2xl">
+                <div className="mt-1 bg-white rounded-lg shadow-2xl">
                   <div className="flex">
                     <div className="flex-1 py-5 pl-5 overflow-hidden">
                       <svg
@@ -365,7 +376,7 @@ export default function Home() {
 
                     <div className="w-full h-[1px] bg-black mt-3 "></div>
 
-                    <div className="info-utilities">
+                    <div className="info-utilities-1">
                       <div className="flex">
                         <div className="flex-grow">
                           <div className="relative">
@@ -390,6 +401,82 @@ export default function Home() {
                             </select>
                           </div>
                         </div>
+
+                        <div className="flex-grow ml-2">
+                          <div className="relative">
+                            <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
+                              <img src={unidad} alt="" />
+                            </div>
+                            <select
+                              name="type_of_requirement"
+                              id="type_of_requirement"
+                              placeholder="Unity"
+                              value={formData.type_of_requirement}
+                              onChange={handleChange}
+                              className="text-black ps-10 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                            >
+                              <option value="">Type requirement</option>
+                              <option value="Single">Single</option>
+                              <option value="Team driver">Team driver</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="bg-gray-200 rounded flex-grow m-auto ml-2 px-4 py-2.5 mt-2 ">
+                          <label>Hazmat:</label>
+                          <input
+                            className="ml-2"
+                            type="radio"
+                            name="hazmat"
+                            value="No"
+                            onChange={handleChange}
+                            checked={formData.hazmat === "No"}
+                          />{" "}
+                          No
+                          <input
+                            className="ml-2  "
+                            type="radio"
+                            name="hazmat"
+                            value="Yes"
+                            onChange={handleChange}
+                            checked={formData.hazmat.startsWith("Yes")}
+                          />{" "}
+                          Yes
+                        </div>
+
+                        {formData.hazmat.startsWith("Yes") && (
+                          <div className="bg-gray-200 rounded flex-grow m-auto ml-2 px-4 py-2.5 mt-2 ">
+                            <select
+                              className="bg-gray-200 rounded flex-grow m-auto ml-2  "
+                              name="hazmat"
+                              value={formData.hazmat}
+                              onChange={handleChange}
+                            >
+                              <option value="">Hazmat</option>
+                              <option value="Yes-UN">UN</option>
+                              <option value="Yes-Class">Class</option>
+                            </select>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="info-utilities ">
+                      <div className="flex">
+                        <div className="flex-grow">
+                          <div className="text-black ps-1 flex  placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                            <p className="w-[125px]">Fecha y hora: </p>
+                            <input
+                              name="fecha_hora_origen"
+                              id="fecha_hora_origen"
+                              type="datetime-local"
+                              value={formData.fecha_hora_origen}
+                              onChange={handleChange}
+                              className="bg-gray-200"
+                            />
+                          </div>
+                        </div>
+
                         <div className="flex-grow w-1/4 pr-2">
                           <div className="relative">
                             <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
@@ -419,32 +506,32 @@ export default function Home() {
 
                         <div className="flex-grow w-1/4 pr-2">
                           <div className="relative">
-                          <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
+                            <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
                               <img src={dimension} alt="" />
                             </div>
-                          <input
-                            name="dimensiones"
-                            id="dimensiones"
-                            placeholder="Dimensions"
-                            value={formData.dimensiones}
-                            onChange={handleChange}
-                            className="text-black ps-9 ml-2 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                          />
+                            <input
+                              name="dimensiones"
+                              id="dimensiones"
+                              placeholder="Dimensions"
+                              value={formData.dimensiones}
+                              onChange={handleChange}
+                              className="text-black ps-9 ml-2 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                            />
                           </div>
                         </div>
                         <div className="flex-grow w-1/4 pr-2">
                           <div className="relative">
-                          <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
+                            <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
                               <img src={cantidad} alt="" />
                             </div>
-                          <input
-                            name="cantidad_skids"
-                            id="cantidad_skids"
-                            placeholder="Quantity"
-                            value={formData.cantidad_skids}
-                            onChange={handleChange}
-                            className="text-black ps-9 ml-2 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                          />
+                            <input
+                              name="cantidad_skids"
+                              id="cantidad_skids"
+                              placeholder="Quantity"
+                              value={formData.cantidad_skids}
+                              onChange={handleChange}
+                              className="text-black ps-9 ml-2 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                            />
                           </div>
                         </div>
                       </div>
@@ -487,65 +574,79 @@ export default function Home() {
                   </div>
                   <div className="px-5 pb-5">
                     <div className="relative">
-                       <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
-                              <img src={addresOr} alt="" />
-                        </div>
+                      <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
+                        <img src={addresOr} alt="" />
+                      </div>
 
-                    <input
-                      name="direccion_destino"
-                      id="direccion_destino"
-                      placeholder="Address"
-                      value={formData.direccion_destino}
-                      onChange={handleChange}
-                      className="text-black ps-11 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                    />
+                      <input
+                        name="direccion_destino"
+                        id="direccion_destino"
+                        placeholder="Address"
+                        value={formData.direccion_destino}
+                        onChange={handleChange}
+                        className="text-black ps-11 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                      />
                     </div>
 
                     <div className="flex">
+                      <div className="flex-grow mr-2 ">
+                        <div className="text-black ps-1 flex  placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                          <p className="w-[125px]">Fecha y hora: </p>
+                          <input
+                            name="fecha_hora_destino"
+                            id="fecha_hora_destino"
+                            type="datetime-local"
+                            value={formData.fecha_hora_destino}
+                            onChange={handleChange}
+                            className="bg-gray-200"
+                          />
+                        </div>
+                      </div>
+
                       <div className="flex-grow">
                         <div className="relative">
-                        <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
-                              <img src={city} alt="" />
-                        </div>
-                        <input
-                          name="destino"
-                          id="destino"
-                          placeholder="City"
-                          value={formData.destino}
-                          onChange={handleChange}
-                          className="text-black ps-11 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                        />
+                          <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
+                            <img src={city} alt="" />
+                          </div>
+                          <input
+                            name="destino"
+                            id="destino"
+                            placeholder="City"
+                            value={formData.destino}
+                            onChange={handleChange}
+                            className="text-black ps-11 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                          />
                         </div>
                       </div>
                       <div className="flex-grow w-1/4 pr-2">
                         <div className="relative">
-                        <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
-                              <img src={map} alt="" />
-                        </div>
-                        <input
-                          name="estado_destino"
-                          id="estado_destino"
-                          placeholder="State"
-                          value={formData.estado_destino}
-                          onChange={handleChange}
-                          className="text-black ps-9 ml-2 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                        />
+                          <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
+                            <img src={map} alt="" />
+                          </div>
+                          <input
+                            name="estado_destino"
+                            id="estado_destino"
+                            placeholder="State"
+                            value={formData.estado_destino}
+                            onChange={handleChange}
+                            className="text-black ps-9 ml-2 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                          />
                         </div>
                       </div>
 
                       <div className="flex-grow w-1/4 pr-2">
                         <div className="relative">
-                        <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
-                              <img src={cp} alt="" />
-                        </div>
-                        <input
-                          name="cp_destino"
-                          id="cp_destino"
-                          placeholder="CP"
-                          value={formData.cp_destino}
-                          onChange={handleChange}
-                          className="text-black ps-9 ml-2 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                        />
+                          <div class="absolute z-10 inset-y-0 start-0 top-2 flex items-center ps-3.5 pointer-events-none">
+                            <img src={cp} alt="" />
+                          </div>
+                          <input
+                            name="cp_destino"
+                            id="cp_destino"
+                            placeholder="CP"
+                            value={formData.cp_destino}
+                            onChange={handleChange}
+                            className="text-black ps-9 ml-2 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                          />
                         </div>
                       </div>
                     </div>
@@ -562,7 +663,8 @@ export default function Home() {
                           height="24px"
                           viewBox="0 0 24 24"
                           width="24px"
-                          fill="#FFFFFF">
+                          fill="#FFFFFF"
+                        >
                           <path d="M0 0h24v24H0V0z" fill="none"></path>
                           <path
                             d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-8H6V6h9v4z"
@@ -573,21 +675,6 @@ export default function Home() {
                         <span className="pl-2 mx-1">Save</span>
                       </button>
                     </div>
-                    {/* <div className="flex-initial">
-                      <button
-                        type="button"
-                        className="flex items-center px-5 py-2.5 font-medium tracking-wide text-black capitalize rounded-md hover:bg-green-200 hover:fill-current hover:text-green-600 focus:outline-none transition duration-300 transform active:scale-95 ease-in-out">
-                        <span className="pl-2 mx-1">Send To Email</span>
-
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          class="size-6">
-                          <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
-                        </svg>
-                      </button>
-                    </div> */}
                   </div>
                 </div>
               </div>
