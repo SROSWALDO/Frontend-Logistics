@@ -274,7 +274,7 @@ export default function Home() {
         <div className="formulario bg-[#eeeff1] ">
           <form
             onSubmit={handleSubmit}
-            className="flex w-[1250px] mt-[2px] m-auto "
+            className="flex w-[1250px] mt-2 m-auto "
           >
             <div className="m-auto">
               <div>
@@ -447,7 +447,7 @@ export default function Home() {
                         </div>
                         {formData.hazmat === "true" ? (
                           <>
-                            <div className="mb-4 mr-2">
+                            <div className="mb-1 mr-2">
                               <input
                                 className="text-black  ml-2 ps-9 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                                 placeholder="UN"
@@ -459,7 +459,7 @@ export default function Home() {
                                 
                               />
                             </div>
-                            <div className="mb-4">
+                            <div className="mb-1">
                               <input
                                 placeholder="Class"
                                 id="clas"
