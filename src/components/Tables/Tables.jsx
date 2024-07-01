@@ -121,12 +121,12 @@ export default function Tables() {
           </div>
         </NavLink>
       </div>
-      <div className="tables-container bg-gray-100 w-full">
+      <div className="tables-container bg-gray-100  w-full">
         <div className="content bg-gray-100 mt-24 w-[1500px] shadow-lg m-auto h-auto">
           <div className="searchbar shadow-lg flex justify-center">
             <input className="m-2 w-[950px] text-center" type="text" placeholder="Search..." />
           </div>
-          <div className="overflow-x-auto mt-6">
+          <div className="overflow-x-auto  mt-6">
             {Array.isArray(registers) && registers.length > 0 ? (
               <div className="table-wrapper max-h-[490px] overflow-y-auto">
                 <table className="min-w-full bg-white shadow-md rounded-lg">
@@ -147,7 +147,7 @@ export default function Tables() {
                       <th className="py-2 px-4 border-b">Quantity</th>
                       <th className="py-2 px-4 border-b">Hazmat</th>
                       {/* <th className="py-2 px-4 border-b">Creado en</th> */}
-                      <th className="py-2 px-4 border-b">Usuario</th>
+                      <th className="py-2 px-4 border-b">User</th>
                       <th className="py-2 px-4 border-b"></th>
                     </tr>
                   </thead>
@@ -171,7 +171,7 @@ export default function Tables() {
                         <td className="py-2 px-4 border-b">{register.peso} kg</td>
                         <td className="py-2 px-4 border-b">{register.dimensiones}</td>
                         <td className="py-2 px-4 border-b">{register.cantidad_skids}</td>
-                        <td className="py-2 px-4 border-b">{register.hazmat}</td>
+                        <td className="py-2 px-4 border-b">{register.hazmat ? 'Yes' : 'No'} UN: {register.un} Class: {register.clas}</td>
                         {/* <td className="py-2 px-4 border-b">{new Date(register.createdAt).toLocaleString()}</td> */}
                         <td className="py-2 px-4 border-b text-center ">{register.usuarioId}</td>
                         <td className="py-2 px-4 border-b ">

@@ -46,6 +46,8 @@ export default function Home() {
     hazmat: "",
     fecha_hora_origen: "",
     fecha_hora_unidad: "",
+    un: "",
+    clas: "",
   });
 
   const succes = () => {
@@ -223,6 +225,8 @@ export default function Home() {
         hazmat: "",
         fecha_hora_origen: "",
         fecha_hora_unidad: "",
+        un: "",
+        clas: "",
       });
     } catch (error) {
       console.error("Error al crear registro", error.message);
@@ -270,7 +274,7 @@ export default function Home() {
         <div className="formulario bg-[#eeeff1] ">
           <form
             onSubmit={handleSubmit}
-            className="flex w-[1250px] mt-2 m-auto "
+            className="flex w-[1250px] mt-[2px] m-auto "
           >
             <div className="m-auto">
               <div>
@@ -428,54 +432,52 @@ export default function Home() {
                             className="ml-2"
                             type="radio"
                             name="hazmat"
-                            value="No"
+                            value="false"
                             onChange={handleChange}
-                            checked={formData.hazmat === "No"}
                           />{" "}
                           No
                           <input
                             className="ml-2  "
                             type="radio"
                             name="hazmat"
-                            value="Yes"
+                            value="true"
                             onChange={handleChange}
-                            checked={formData.hazmat.startsWith("Yes")}
                           />{" "}
                           Yes
                         </div>
-
-                        {formData.hazmat.startsWith("Yes") && (
-                          <div className="bg-gray-200 rounded flex-grow m-auto ml-2 px-4 py-2.5 mt-2 ">
-                            <select
-                              className="bg-gray-200 rounded flex-grow m-auto ml-2  "
-                              name="hazmat"
-                              value={formData.hazmat}
-                              onChange={handleChange}
-                            >
-                              <option value="">Hazmat</option>
-                              <option value="Yes-UN">UN</option>
-                              <option value="Yes-Class">Class</option>
-                            </select>
-                          </div>
-                        )}
+                        {formData.hazmat === "true" ? (
+                          <>
+                            <div className="mb-4 mr-2">
+                              <input
+                                className="text-black  ml-2 ps-9 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                                placeholder="UN"
+                                id="un"
+                                name="un"
+                                type="text"
+                                value={formData.un}
+                                onChange={handleChange}
+                                
+                              />
+                            </div>
+                            <div className="mb-4">
+                              <input
+                                placeholder="Class"
+                                id="clas"
+                                name="clas"
+                                type="text"
+                                value={formData.clas}
+                                onChange={handleChange}
+                                className="text-black  ml-2 ps-9 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                              />
+                            </div>
+                          </>
+                        ) : null}
                       </div>
                     </div>
 
                     <div className="info-utilities ">
                       <div className="flex">
-                        <div className="flex-grow">
-                          <div className="text-black ps-1 flex  placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
-                            <p className="w-[125px]">Fecha y hora: </p>
-                            <input
-                              name="fecha_hora_origen"
-                              id="fecha_hora_origen"
-                              type="datetime-local"
-                              value={formData.fecha_hora_origen}
-                              onChange={handleChange}
-                              className="bg-gray-200"
-                            />
-                          </div>
-                        </div>
+                        
 
                         <div className="flex-grow w-1/4 pr-2">
                           <div className="relative">
@@ -534,6 +536,19 @@ export default function Home() {
                             />
                           </div>
                         </div>
+                        <div className="flex-grow">
+                          <div className="text-black ps-1 flex ml-2 placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                            <p className="w-[125px]">Fecha y hora: </p>
+                            <input
+                              name="fecha_hora_origen"
+                              id="fecha_hora_origen"
+                              type="datetime-local"
+                              value={formData.fecha_hora_origen}
+                              onChange={handleChange}
+                              className="bg-gray-200"
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -589,19 +604,7 @@ export default function Home() {
                     </div>
 
                     <div className="flex">
-                      <div className="flex-grow mr-2 ">
-                        <div className="text-black ps-1 flex  placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
-                          <p className="w-[125px]">Fecha y hora: </p>
-                          <input
-                            name="fecha_hora_destino"
-                            id="fecha_hora_destino"
-                            type="datetime-local"
-                            value={formData.fecha_hora_destino}
-                            onChange={handleChange}
-                            className="bg-gray-200"
-                          />
-                        </div>
-                      </div>
+                      
 
                       <div className="flex-grow">
                         <div className="relative">
@@ -649,9 +652,22 @@ export default function Home() {
                           />
                         </div>
                       </div>
+                      <div className="flex-grow ml-2 ">
+                        <div className="text-black ps-1 flex  placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                          <p className="w-[125px]">Fecha y hora: </p>
+                          <input
+                            name="fecha_hora_destino"
+                            id="fecha_hora_destino"
+                            type="datetime-local"
+                            value={formData.fecha_hora_destino}
+                            onChange={handleChange}
+                            className="bg-gray-200"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <hr className="mt-4" />
+                  <hr className="mt-2" />
                   <div className="flex flex-row-reverse p-3">
                     <div className="flex-initial pl-3">
                       <button

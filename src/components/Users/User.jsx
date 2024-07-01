@@ -108,6 +108,7 @@ export default function User () {
                         <table className="w-[700px] m-auto bg-white shadow-2xl rounded-lg">
                             <thead>
                                 <tr>
+                                <th className="py-2 px-4 border-b">ID</th>
                                     <th className="py-2 px-4 border-b">Username</th>
                                     <th className="py-2 px-4 border-b">Email</th>
                                     <th className="py-2 px-4 border-b">Password</th>
@@ -116,7 +117,8 @@ export default function User () {
                             </thead>
                             <tbody>
                                 {users.map((user, index) => (
-                                    <tr key={index}>
+                                    <tr className='text-center' key={index}>
+                                        <td className="py-2 px-4 border-b">{user.id}</td>
                                         <td className="py-2 px-4 border-b">{user.nombreUsuario}</td>
                                         <td className="py-2 px-4 border-b">{user.correoElectronico}</td>
                                         <td className="py-2 px-4 border-b">{user.contraseña}</td>

@@ -66,7 +66,6 @@ const formatDateTime = (dateTimeString) => {
     hour: "numeric",
     minute: "numeric",
     second: "numeric",
-    timeZoneName: "short",
   };
   return new Date(dateTimeString).toLocaleString("es-ES", options);
 };
@@ -75,11 +74,11 @@ const RegisterPDF = ({ register }) => (
   <Document>
     <Page style={styles.page}>
       <View style={styles.section}>
-        <Text style={styles.heading}>Register</Text>
+        <Text style={styles.heading}>BOL'S</Text>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.subheading}>Origen</Text>
+        <Text style={styles.subheading}>Pick up</Text>
         <View>
           <View style={styles.table}>
             <View style={styles.tableRow}>
@@ -90,25 +89,25 @@ const RegisterPDF = ({ register }) => (
                 <Text>{register.id}</Text>
               </View>
               <View style={styles.labelCell}>
-                <Text>Origen</Text>
+                <Text>Origin</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.origen}</Text>
               </View>
               <View style={styles.labelCell}>
-                <Text>Fecha y hora</Text>
+                <Text>Departure</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{formatDateTime(register.fecha_hora_origen)}</Text>
               </View>
               <View style={styles.labelCell}>
-                <Text>CP Origen</Text>
+                <Text>CP</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.cp_origen}</Text>
               </View>
               <View style={styles.labelCell}>
-                <Text>Direccion Origen</Text>
+                <Text>Address</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.direccion_origen}</Text>
@@ -119,30 +118,30 @@ const RegisterPDF = ({ register }) => (
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.subheading}>Destino</Text>
+        <Text style={styles.subheading}>Delivery</Text>
         <View>
           <View style={styles.table}>
             <View style={styles.tableRow}>
               <View style={styles.labelCell}>
-                <Text>Destino</Text>
+                <Text>Destiny</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.destino}</Text>
               </View>
               <View style={styles.labelCell}>
-                <Text>Fecha y hora</Text>
+                <Text>Arrival</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{formatDateTime(register.fecha_hora_destino)}</Text>
               </View>
               <View style={styles.labelCell}>
-                <Text>CP Destino</Text>
+                <Text>CP</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.cp_destino}</Text>
               </View>
               <View style={styles.labelCell}>
-                <Text>Direccion Destino</Text>
+                <Text>Address</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.direccion_destino}</Text>
@@ -153,24 +152,24 @@ const RegisterPDF = ({ register }) => (
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.subheading}>Detalles de la Unidad</Text>
+        <Text style={styles.subheading}>Cuotes</Text>
         <View>
           <View style={styles.table}>
             <View style={styles.tableRow}>
               <View style={styles.labelCell}>
-                <Text>Unidad</Text>
+                <Text>Unity</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.unidad}</Text>
               </View>
               <View style={styles.labelCell}>
-                <Text>Peso</Text>
+                <Text>Weight</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.peso} kg</Text>
               </View>
               <View style={styles.labelCell}>
-                <Text>Dimensiones</Text>
+                <Text>Dimensions</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.dimensiones} </Text>
@@ -179,10 +178,14 @@ const RegisterPDF = ({ register }) => (
                 <Text>Hazmat</Text>
               </View>
               <View style={styles.valueCell}>
-                <Text>{register.hazmat} </Text>
+                <Text>
+                  {register.hazmat ? "" : "No"}
+                  {register.un ? ` UN: ${register.un}` : ""}
+                  {register.clas ? ` Class: ${register.clas}` : ""}
+                </Text>
               </View>
               <View style={styles.labelCell}>
-                <Text>Cantidad de Skids</Text>
+                <Text>skids</Text>
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.cantidad_skids}</Text>
