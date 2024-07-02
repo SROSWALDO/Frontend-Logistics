@@ -6,6 +6,8 @@ import trash from "../../assets/delete.svg";
 import logo from "../../assets/Logo.png";
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../Login/Autenticate';
+import formulario from "../../assets/formulario.svg";
+import bar from "../../assets/bar.svg";
 
 export default function User () {
 
@@ -81,7 +83,7 @@ export default function User () {
                 </div>
                 
                     <div onClick={handleFormClick} className="toRegisters flex  w-[90px] justify-center rounded-lg text-white mr-8 cursor-pointer transition-all">
-                        
+                        <img src={formulario} alt="" />
                         <p className="text-lg">Form</p>
                     </div>
                 
@@ -95,7 +97,7 @@ export default function User () {
 
                 <NavLink to="/register">
                     <div className="toRegisters flex w-[100px] justify-center rounded-lg text-white mr-8 cursor-pointer transition-all">
-                        
+                        <img className=" " src={bar} alt="" />
                         <p className=" text-lg">Registers</p>
                     </div>
                 </NavLink>

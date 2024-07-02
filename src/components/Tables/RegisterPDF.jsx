@@ -74,7 +74,7 @@ const RegisterPDF = ({ register }) => (
   <Document>
     <Page style={styles.page}>
       <View style={styles.section}>
-        <Text style={styles.heading}>BOL'S</Text>
+        <Text style={styles.heading}>Bill of Lading</Text>
       </View>
 
       <View style={styles.section}>
@@ -93,6 +93,12 @@ const RegisterPDF = ({ register }) => (
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.origen}</Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>State</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.estado_origen}</Text>
               </View>
               <View style={styles.labelCell}>
                 <Text>Departure</Text>
@@ -127,6 +133,12 @@ const RegisterPDF = ({ register }) => (
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.destino}</Text>
+              </View>
+              <View style={styles.labelCell}>
+                <Text>State</Text>
+              </View>
+              <View style={styles.valueCell}>
+                <Text>{register.estado_destino}</Text>
               </View>
               <View style={styles.labelCell}>
                 <Text>Arrival</Text>
