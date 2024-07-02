@@ -8,6 +8,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../Login/Autenticate';
 import formulario from "../../assets/formulario.svg";
 import bar from "../../assets/bar.svg";
+import userRegister from '../../assets/registerUser.svg'
 
 export default function User () {
 
@@ -83,21 +84,21 @@ export default function User () {
                 </div>
                 
                     <div onClick={handleFormClick} className="toRegisters flex  w-[90px] justify-center rounded-lg text-white mr-8 cursor-pointer transition-all">
-                        <img src={formulario} alt="" />
+                        <img className='mr-[2px]' src={formulario} alt="" />
                         <p className="text-lg">Form</p>
                     </div>
                 
 
                 
                     <div onClick={handleTableClick} className="toRegisters flex  w-[90px] justify-center rounded-lg text-white mr-8 cursor-pointer transition-all">
-                        
+                    <img className='mr-[2px] pb-1' src={bar} alt="" />
                         <p className="text-lg">Tables</p>
                     </div>
                
 
                 <NavLink to="/register">
                     <div className="toRegisters flex w-[100px] justify-center rounded-lg text-white mr-8 cursor-pointer transition-all">
-                        <img className=" " src={bar} alt="" />
+                        <img className='mr-[2px]' src={userRegister} alt="" />
                         <p className=" text-lg">Registers</p>
                     </div>
                 </NavLink>
