@@ -101,10 +101,10 @@ const RegisterPDF = ({ register }) => (
                 <Text>{register.estado_origen}</Text>
               </View>
               <View style={styles.labelCell}>
-                <Text>Departure</Text>
+                <Text>Arrival</Text>
               </View>
               <View style={styles.valueCell}>
-                <Text>{formatDateTime(register.fecha_hora_origen)}</Text>
+                <Text>{formatDateTime(register.fecha_hora_destino)}</Text>
               </View>
               <View style={styles.labelCell}>
                 <Text>CP</Text>
@@ -139,12 +139,6 @@ const RegisterPDF = ({ register }) => (
               </View>
               <View style={styles.valueCell}>
                 <Text>{register.estado_destino}</Text>
-              </View>
-              <View style={styles.labelCell}>
-                <Text>Arrival</Text>
-              </View>
-              <View style={styles.valueCell}>
-                <Text>{formatDateTime(register.fecha_hora_destino)}</Text>
               </View>
               <View style={styles.labelCell}>
                 <Text>CP</Text>
