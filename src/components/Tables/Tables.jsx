@@ -98,7 +98,7 @@ export default function Tables() {
             <NavLink to="/users">
               <div className="toRegisters relative inline-flex items-center hover:scale-105  w-[100px] justify-center rounded-sm text-white mr-8 cursor-pointer transition-all">
                 <img className='absolute left-0 top-0' src={user} alt="" />
-                <p className="text-lg ml-1   transition-all ">Users</p>
+                <p className="text-lg ml-1   transition-all ">User</p>
               </div>
             </NavLink>
 
